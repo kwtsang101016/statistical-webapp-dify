@@ -17,6 +17,7 @@ export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {
   console.log('All env vars:', import.meta.env);
 
   try {
+    // Try the input.messages format (conversation style)
     const requestBody = {
       model: 'qwen-turbo',
       input: {
@@ -32,6 +33,8 @@ export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {
         max_tokens: 1000
       }
     };
+
+    console.log('Request body:', JSON.stringify(requestBody, null, 2));
 
     const response = await fetch('/api/dashscope', {
       method: 'POST',
@@ -67,7 +70,18 @@ export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {
         success: true,
         data: data.choices[0].message.content
       };
+    } else if (data.result) {
+      return {
+        success: true,
+        data: data.result
+      };
+    } else if (data.text) {
+      return {
+        success: true,
+        data: data.text
+      };
     } else {
+      console.log('Full response structure:', JSON.stringify(data, null, 2));
       return {
         success: false,
         error: `Invalid response format from DashScope API: ${JSON.stringify(data)}`
@@ -287,15 +301,21 @@ function generateSimulatedData(prompt: string): LLMResponse {
 
 // Main function to call the best available API
 export async function callLLMAPI(prompt: string): Promise<LLMResponse> {
-  // For now, use simulated data generation to ensure the app works
-  // TODO: Fix DashScope API integration
-  console.log('Using simulated data generation for demo purposes');
-  return generateSimulatedData(prompt);
+  console.log('Attempting to call DashScope API...');
   
-  // Try APIs in order of preference (commented out until API issues are resolved)
-  /*
+  try {
+    const result = await callDashScopeAPI(prompt);
+    if (result.success) {
+      console.log('DashScope API succeeded!');
+      return result;
+    }
+    console.warn('DashScope API failed:', result.error);
+  } catch (error) {
+    console.warn('DashScope API error:', error);
+  }
+
+  // If DashScope fails, try other APIs
   const apis = [
-    { name: 'DashScope', fn: callDashScopeAPI },
     { name: 'Zhipu', fn: callZhipuAPI },
     { name: 'Baidu', fn: callBaiduAPI }
   ];
@@ -315,5 +335,4 @@ export async function callLLMAPI(prompt: string): Promise<LLMResponse> {
   // If all APIs fail, use simulated data
   console.log('All APIs failed, using simulated data generation');
   return generateSimulatedData(prompt);
-  */
 }
