@@ -101,14 +101,6 @@ export function AIDataGenerator({ onDatasetAdded, onBack }: AIDataGeneratorProps
     return data;
   };
 
-  const extractNumber = (text: string, keyword?: string): number | null => {
-    const regex = keyword 
-      ? new RegExp(`${keyword}[\\s:=]+(\\d+(?:\\.\\d+)?)`, 'i')
-      : /(\d+(?:\.\d+)?)/;
-    
-    const match = text.match(regex);
-    return match ? parseFloat(match[1]) : null;
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

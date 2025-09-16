@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BarChart3, Calculator, Download, Info, Upload, Brain, X } from 'lucide-react';
+import { useState } from 'react';
+import { BarChart3, X } from 'lucide-react';
 import { DataInputSelector } from './components/DataInputSelector';
 import { FileUploadComponent } from './components/FileUploadComponent';
 import { ColumnSelector } from './components/ColumnSelector';
@@ -36,13 +36,6 @@ interface DistributionParams {
   uniform: { min: number; max: number };
 }
 
-const DEFAULT_PARAMS: DistributionParams = {
-  normal: { mean: 0, stdDev: 1 },
-  exponential: { lambda: 1 },
-  binomial: { n: 10, p: 0.5 },
-  poisson: { lambda: 3 },
-  uniform: { min: 0, max: 1 }
-};
 
 const DISTRIBUTION_INFO = {
   normal: {
@@ -77,59 +70,6 @@ const DISTRIBUTION_INFO = {
   }
 };
 
-// Simple data generation
-function generateData(distribution: DistributionType, params: DistributionParams[DistributionType], sampleSize: number): number[] {
-  const data: number[] = [];
-  
-  for (let i = 0; i < sampleSize; i++) {
-    switch (distribution) {
-      case 'normal':
-        const { mean, stdDev } = params as DistributionParams['normal'];
-        // Box-Muller transform
-        const u1 = Math.random();
-        const u2 = Math.random();
-        const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-        data.push(mean + stdDev * z0);
-        break;
-        
-      case 'exponential':
-        const { lambda } = params as DistributionParams['exponential'];
-        data.push(-Math.log(Math.random()) / lambda);
-        break;
-        
-      case 'binomial':
-        const { n, p } = params as DistributionParams['binomial'];
-        let successes = 0;
-        for (let j = 0; j < n; j++) {
-          if (Math.random() < p) successes++;
-        }
-        data.push(successes);
-        break;
-        
-      case 'poisson':
-        const { lambda: poissonLambda } = params as DistributionParams['poisson'];
-        let k = 0;
-        let prob = Math.exp(-poissonLambda);
-        let F = prob;
-        const u = Math.random();
-        
-        while (u > F) {
-          k++;
-          prob *= poissonLambda / k;
-          F += prob;
-        }
-        data.push(k);
-        break;
-        
-      case 'uniform':
-        const { min, max } = params as DistributionParams['uniform'];
-        data.push(min + Math.random() * (max - min));
-        break;
-    }
-  }
-  
-  return data;
-}
 
 // Simple statistics calculation
 function calculateStats(data: number[]) {
@@ -438,7 +378,7 @@ function App() {
                     )}
                   </div>
                   {renderDataInputComponent()}
-                </div>
+      </div>
 
             {/* Dataset Management */}
             {datasets.length > 0 && (
@@ -707,8 +647,8 @@ function App() {
                                   <p className="text-sm text-green-600 font-medium">MoM</p>
                                   <p className="text-lg font-bold text-gray-900">
                                     {momResult.estimatedParams[param].toFixed(4)}
-                                  </p>
-                                </div>
+        </p>
+      </div>
                               </div>
                               <div className="mt-2">
                                 <p className="text-sm text-gray-600">
