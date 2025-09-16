@@ -36,7 +36,13 @@ export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {
 
     console.log('Request body:', JSON.stringify(requestBody, null, 2));
 
-    const response = await fetch('/api/dashscope', {
+    // Use different endpoints for development vs production
+    const isDevelopment = import.meta.env.DEV;
+    const apiUrl = isDevelopment 
+      ? '/api/dashscope'  // Use Vite proxy in development
+      : 'https://statistical-webapp.vercel.app/api/dashscope'; // Use Vercel serverless function in production
+
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,

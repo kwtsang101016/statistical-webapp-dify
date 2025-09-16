@@ -149,9 +149,15 @@ export function AIDataGenerator({ onDatasetAdded, onBack }: AIDataGeneratorProps
         </div>
 
         {error && (
-          <div className="flex items-center space-x-2 text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
-            <AlertCircle className="h-4 w-4" />
-            <span className="text-sm">{error}</span>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-start space-x-3">
+              <AlertCircle className="h-5 w-5 text-blue-600 mt-0.5" />
+              <div>
+                <h4 className="text-sm font-medium text-blue-900 mb-2">AI API Information</h4>
+                <p className="text-sm text-blue-800 mb-2">{error}</p>
+                <p className="text-sm text-blue-700 font-medium">✅ Simulated data will be generated instead!</p>
+              </div>
+            </div>
           </div>
         )}
 
