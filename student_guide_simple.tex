@@ -1,0 +1,603 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+% Theme and colors
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% Custom colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Code listing style
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Title page information
+\title[Statistical Webapp]{Building Your First Statistical Webapp}
+\subtitle{STA2002: Probability and Statistics II}
+\author{Fangda Song \& Ka Wai Tsang}
+\institute[CUHK(SZ)]{School of Data Science, CUHK(SZ)}
+\date{\today}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Table of contents
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+\frametitle{What We're Building}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+\item \textbf{Interactive Statistical Webapp}
+\item Distribution generator (Normal, Exponential, Binomial, Poisson, Uniform)
+\item Real-time data visualization
+\item Parameter estimation (MLE \& Method of Moments)
+\item Summary statistics calculation
+\item Educational content with formulas
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{center}
+\textbf{Modern UI} \\
+\textbf{TypeScript} \\
+\textbf{React + Tailwind}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Learning Objectives}
+\begin{enumerate}
+\item Understand modern web development with React and TypeScript
+\item Implement statistical algorithms for data generation
+\item Create interactive visualizations
+\item Compare parameter estimation methods (MLE vs MoM)
+\item Deploy a professional web application
+\item Learn to troubleshoot common development issues
+\end{enumerate}
+\end{frame}
+
+\section{Prerequisites \& Setup}
+
+\begin{frame}
+\frametitle{Prerequisites}
+\begin{alertblock}{Important}
+You don't need programming experience! We'll use AI code editors to help.
+\end{alertblock}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{Required:}
+\begin{itemize}
+\item Computer with internet
+\item Node.js 18+ installed
+\item Git installed
+\item GitHub account
+\item AI code editor (Cursor/VS Code)
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Helpful:}
+\begin{itemize}
+\item Basic command line knowledge
+\item Understanding of statistics concepts
+\item Patience for troubleshooting
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Step 1: Install Node.js}
+\begin{alertblock}{Critical Step}
+Download and install Node.js from \href{https://nodejs.org}{nodejs.org}
+\end{alertblock}
+
+\begin{lstlisting}[language=bash, caption=Verify Installation]
+# Check Node.js version
+node --version
+# Should show v18.x.x or higher
+
+# Check npm version
+npm --version
+# Should show 9.x.x or higher
+\end{lstlisting}
+
+\begin{exampleblock}{Troubleshooting}
+If commands not found:
+\begin{itemize}
+\item Restart your terminal/command prompt
+\item Check if Node.js is in your PATH
+\item Try reinstalling Node.js
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Step 2: Create Project Directory}
+\begin{lstlisting}[language=bash, caption=Create Project Folder]
+# Navigate to your desired location
+cd Desktop
+# or wherever you want the project
+
+# Create project folder
+mkdir statistical-webapp-project
+cd statistical-webapp-project
+\end{lstlisting}
+
+\begin{alertblock}{Important}
+Use a simple path without spaces or special characters. Avoid paths like:
+\begin{itemize}
+\item \texttt{C:\textbackslash Users\textbackslash YourName\textbackslash MyDocuments}
+\item \texttt{C:\textbackslash ProgramFiles\textbackslash Projects}
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Creating the React Project}
+
+\begin{frame}[fragile]
+\frametitle{Step 3: Create React Project}
+\begin{alertblock}{PowerShell Users}
+If you're using PowerShell and get interactive prompts:
+\begin{itemize}
+\item Type \texttt{y} and press Enter when asked "Ok to proceed?"
+\item Select \textbf{React} when asked for framework
+\item Select \textbf{TypeScript} when asked for variant
+\end{itemize}
+\end{alertblock}
+
+\begin{lstlisting}[language=bash, caption=Create React App]
+# Create React project with TypeScript
+npm create vite@latest statistical-webapp -- --template react-ts
+
+# Navigate to project
+cd statistical-webapp
+
+# Install dependencies
+npm install
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Step 4: Install Additional Packages}
+\begin{lstlisting}[language=bash, caption=Install Required Packages]
+# Install Tailwind CSS and dependencies
+npm install -D tailwindcss@^3.4.0 postcss autoprefixer
+
+# Install charting library
+npm install recharts
+
+# Install icons
+npm install lucide-react
+
+# Initialize Tailwind
+npx tailwindcss init -p
+\end{lstlisting}
+
+\begin{alertblock}{Common Issues}
+\begin{itemize}
+\item If \texttt{npx} command fails, try: \texttt{npm install -g npx}
+\item If permission errors, try: \texttt{npm install --legacy-peer-deps}
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Configuration Files}
+
+\begin{frame}[fragile]
+\frametitle{Step 5: Configure Tailwind CSS}
+\begin{lstlisting}[language=bash, caption=Update tailwind.config.js]
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#eff6ff',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+        }
+      }
+    },
+  },
+  plugins: [],
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Step 6: Update CSS File}
+\begin{lstlisting}[language=bash, caption=Update src/index.css]
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\section{Running the Application}
+
+\begin{frame}[fragile]
+\frametitle{Step 7: Start Development Server}
+\begin{lstlisting}[language=bash, caption=Start the App]
+# Start development server
+npm run dev
+\end{lstlisting}
+
+\begin{alertblock}{Expected Output}
+You should see:
+\begin{lstlisting}[language=bash]
+> statistical-webapp@0.0.0 dev
+> vite
+
+  VITE v7.1.5  ready in 675 ms
+
+  Local:   http://localhost:5173/
+  Network: use --host to expose
+\end{lstlisting}
+\end{alertblock}
+
+\begin{exampleblock}{Success!}
+Open your browser and go to: \texttt{http://localhost:5173/}
+You should see the default React app.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Common Issues \& Solutions}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{Port Already in Use:}
+\begin{itemize}
+\item Try: \texttt{npm run dev -- --port 3000}
+\item Or kill the process using port 5173
+\end{itemize}
+
+\textbf{Module Import Errors:}
+\begin{itemize}
+\item Clear browser cache (Ctrl+F5)
+\item Restart development server
+\item Check file paths and exports
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Tailwind Not Working:}
+\begin{itemize}
+\item Check \texttt{tailwind.config.js}
+\item Verify CSS imports
+\item Restart development server
+\end{itemize}
+
+\textbf{PowerShell Issues:}
+\begin{itemize}
+\item Use Command Prompt instead
+\item Or enable QuickEdit mode
+\item Avoid complex paths
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Copying the Application Code}
+
+\begin{frame}
+\frametitle{Step 8: Get the Application Code}
+\begin{alertblock}{Important}
+Don't try to write the code from scratch! We'll provide the complete working code.
+\end{alertblock}
+
+\begin{enumerate}
+\item Download the provided \texttt{App.tsx} file
+\item Replace the existing \texttt{src/App.tsx} with the new code
+\item Save the file
+\item Refresh your browser
+\end{enumerate}
+
+\begin{exampleblock}{What You'll See}
+\begin{itemize}
+\item Beautiful statistical webapp interface
+\item Distribution selection panel
+\item Parameter controls with sliders
+\item Data generation functionality
+\item Summary statistics display
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Step 9: Test the Application}
+\begin{enumerate}
+\item Select "Normal Distribution"
+\item Adjust mean and standard deviation sliders
+\item Set sample size to 1000
+\item Click "Generate Data"
+\item Observe the results!
+\end{enumerate}
+
+\begin{alertblock}{Expected Behavior}
+\begin{itemize}
+\item Sliders should update values in real-time
+\item "Generate Data" button should create new data
+\item Statistics should appear in the right panel
+\item No console errors in browser developer tools
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Deployment}
+
+\begin{frame}[fragile]
+\frametitle{Step 10: Deploy to GitHub Pages}
+\begin{lstlisting}[language=bash, caption=Initialize Git Repository]
+# Initialize git repository
+git init
+
+# Add all files
+git add .
+
+# Create initial commit
+git commit -m "Initial statistical webapp"
+
+# Add remote repository (replace with your GitHub repo)
+git remote add origin https://github.com/yourusername/statistical-webapp.git
+
+# Push to GitHub
+git push -u origin main
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Step 11: Configure GitHub Pages}
+\begin{enumerate}
+\item Go to your GitHub repository
+\item Click "Settings" tab
+\item Scroll to "Pages" section
+\item Select "GitHub Actions" as source
+\item The provided workflow will automatically deploy your app
+\end{enumerate}
+
+\begin{alertblock}{Deployment Workflow}
+The repository includes a \texttt{.github/workflows/deploy.yml} file that:
+\begin{itemize}
+\item Builds your React app
+\item Deploys to GitHub Pages
+\item Updates automatically on every push
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Troubleshooting Guide}
+
+\begin{frame}
+\frametitle{Common Problems \& Solutions}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{Import Errors:}
+\begin{itemize}
+\item Check file paths
+\item Verify exports exist
+\item Restart development server
+\item Clear browser cache
+\end{itemize}
+
+\textbf{Tailwind Issues:}
+\begin{itemize}
+\item Use Tailwind v3.4.0 (not v4)
+\item Check config file syntax
+\item Verify CSS imports
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{PowerShell Problems:}
+\begin{itemize}
+\item Use Command Prompt
+\item Enable QuickEdit mode
+\item Avoid spaces in paths
+\end{itemize}
+
+\textbf{Port Issues:}
+\begin{itemize}
+\item Try different port
+\item Kill existing processes
+\item Check firewall settings
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Getting Help}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{AI Code Editor:}
+\begin{itemize}
+\item Ask AI to explain errors
+\item Request code fixes
+\item Get step-by-step guidance
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Resources:}
+\begin{itemize}
+\item React documentation
+\item Tailwind CSS docs
+\item Vite documentation
+\item Stack Overflow
+\end{itemize}
+\end{column}
+\end{columns}
+
+\begin{alertblock}{Pro Tips}
+\begin{itemize}
+\item Read error messages carefully
+\item Check browser developer console
+\item Test incrementally (don't change everything at once)
+\item Use version control (git) to track changes
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Next Steps}
+
+\begin{frame}
+\frametitle{What's Next?}
+\begin{enumerate}
+\item \textbf{Customize the UI}: Change colors, fonts, layout
+\item \textbf{Add New Distributions}: Chi-square, t-distribution, F-distribution
+\item \textbf{Enhance Visualizations}: Add box plots, Q-Q plots
+\item \textbf{Implement Confidence Intervals}: Add CI calculations
+\item \textbf{Add Hypothesis Testing}: t-tests, chi-square tests
+\item \textbf{Create Data Export}: Download data as CSV/JSON
+\end{enumerate}
+
+\begin{exampleblock}{Future Enhancements}
+As you learn more statistics, you can add:
+\begin{itemize}
+\item ANOVA analysis
+\item Linear regression
+\item Bootstrap methods
+\item Central Limit Theorem demonstrations
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Assessment \& Submission}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{What to Submit:}
+\begin{itemize}
+\item GitHub repository URL
+\item Live deployed website
+\item Brief README explaining features
+\item Screenshots of your app
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Evaluation Criteria:}
+\begin{itemize}
+\item Functionality (does it work?)
+\item UI/UX design
+\item Code organization
+\item Educational value
+\item Creativity \& extensions
+\end{itemize}
+\end{column}
+\end{columns}
+
+\begin{alertblock}{Deadline}
+Submit your GitHub repository URL and deployed website link by [DATE].
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Questions \& Support}
+\begin{center}
+\Large \textbf{Questions?}
+
+\vspace{1em}
+
+\textbf{Office Hours:}
+\begin{itemize}
+\item Fangda Song: Tue 3:30-4:30 pm, Rm 420d
+\item Ka Wai Tsang: Mon 10:30-11:30 am, Rm 505b
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Teaching Assistants:}
+\begin{itemize}
+\item Ruicong Wang: Mon 10:00-11:00 am
+\item Wendi Ren: Thu 4:00-5:00 pm
+\item Bokun Yu: Thu 4:00-5:00 pm
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Online Support:}
+Tencent Meeting: 748-5967-3028
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Huge \textbf{Good Luck!}
+
+\vspace{1em}
+
+\Large Build something amazing!
+
+\vspace{2em}
+
+\textbf{Remember:} Start simple, test often, ask for help!
+\end{center}
+\end{frame}
+
+\end{document}
+

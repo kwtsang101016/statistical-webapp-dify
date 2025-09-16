@@ -1,0 +1,1158 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fontawesome}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+% Theme and colors
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% Custom colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Code listing style
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Title page information
+\title[Statistical Webapp]{Building Your Statistical Webapp with AI}
+\subtitle{Using AI Code Editors to Learn Statistics}
+\author{Ka Wai Tsang}
+\institute[CUHK(SZ)]{School of Data Science, CUHK(SZ)}
+\date{September 17, 2025}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Table of contents
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+\frametitle{What We're Building}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+\item \textbf{Multi-Modal Data Analysis Webapp}
+\item Upload real datasets or generate synthetic data
+\item AI-powered data creation with natural language
+\item Basic statistics and MLE/MoM parameter estimation
+\item Tab-based interface for different analysis methods
+\item Ready for confidence intervals, ANOVA, regression
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{center}
+\textbf{Three Data Sources!} \\
+\vspace{1em}
+\textbf{Upload} \\
+\textbf{Generate} \\
+\textbf{AI Create}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Learning Objectives}
+\begin{enumerate}
+\item Master multi-modal data input (upload, generate, AI)
+\item Understand MLE vs Method of Moments through interactive comparison
+\item Learn tab-based UI design for statistical analysis
+\item Implement parameter estimation algorithms
+\item Connect theoretical concepts to practical applications
+\item Prepare for advanced statistical methods (CI, ANOVA, regression)
+\end{enumerate}
+\end{frame}
+
+\section{Why React + TypeScript for Data Analysis?}
+
+\begin{frame}
+\frametitle{The Challenge: Dynamic Data Analysis Webapp}
+\begin{alertblock}{What We Need}
+\begin{itemize}
+\item \textbf{Modular Architecture}: Add new statistical methods easily
+\item \textbf{Type Safety}: Prevent errors in statistical calculations
+\item \textbf{Component Reusability}: Reuse UI elements across different analyses
+\item \textbf{State Management}: Handle complex data flows and calculations
+\item \textbf{Extensibility}: Add features without breaking existing code
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Course Progression Example}
+\begin{itemize}
+\item Week 3: Distributions + MLE/MoM
+\item Week 5: Confidence Intervals
+\item Week 7: Hypothesis Testing
+\item Week 9: ANOVA
+\item Week 11: Linear Regression
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Why React is Perfect for Statistical Webapps}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{Component-Based Architecture:}
+\begin{itemize}
+\item Each statistical method = separate component
+\item Easy to add new analysis modules
+\item Reusable UI elements (charts, inputs, results)
+\item Independent development of features
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{State Management:}
+\begin{itemize}
+\item Centralized data handling
+\item Real-time updates across components
+\item Complex calculation workflows
+\item User interaction management
+\end{itemize}
+\end{column}
+\end{columns}
+
+\begin{alertblock}{Real Example}
+\begin{itemize}
+\item \texttt{DistributionGenerator} component
+\item \texttt{ConfidenceInterval} component (added later)
+\item \texttt{ANOVAAnalysis} component (added later)
+\item All share common \texttt{DataVisualization} component
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Why TypeScript is Essential for Statistics}
+\begin{alertblock}{Type Safety in Statistical Computing}
+\begin{itemize}
+\item \textbf{Data Types}: Ensure correct data structures for analysis
+\item \textbf{Function Signatures}: Prevent parameter errors in calculations
+\item \textbf{Interface Definitions}: Standardize statistical method APIs
+\item \textbf{Error Prevention}: Catch mistakes before they affect results
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{TypeScript Benefits for Statistics}
+\begin{itemize}
+\item \texttt{interface StatisticalTest \{ data: number[]; alpha: number; \}}
+\item \texttt{type DistributionType = 'normal' | 'exponential' | 'binomial'}
+\item \texttt{function calculateMLE(data: number[]): EstimationResult}
+\item Automatic error checking for statistical functions
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Extensibility: Adding New Statistical Methods}
+\begin{alertblock}{Modular Design Pattern}
+\begin{enumerate}
+\item Create new component for each statistical method
+\item Define TypeScript interfaces for data structures
+\item Implement calculation functions with type safety
+\item Add to main application routing
+\item Reuse existing visualization components
+\end{enumerate}
+\end{alertblock}
+
+\begin{exampleblock}{Adding Confidence Intervals Later}
+\begin{itemize}
+\item Create \texttt{ConfidenceIntervalComponent}
+\item Define \texttt{ConfidenceIntervalData} interface
+\item Implement \texttt{calculateCI()} function
+\item Add to main app navigation
+\item Reuse existing \texttt{ChartComponent}
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}{AI Prompt for Extensions}
+\texttt{"I want to add confidence interval analysis to my existing statistical webapp. How do I create a new component that integrates with my current React+TypeScript structure?"}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Modern Development Benefits}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{Development Experience:}
+\begin{itemize}
+\item Hot reloading for instant feedback
+\item Excellent AI code editor support
+\item Rich ecosystem of libraries
+\item Professional development tools
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Performance \& Scalability:}
+\begin{itemize}
+\item Efficient rendering for large datasets
+\item Component optimization
+\item Lazy loading of analysis modules
+\item Responsive design for all devices
+\end{itemize}
+\end{column}
+\end{columns}
+
+\begin{alertblock}{Industry Standard}
+\begin{itemize}
+\item Used by major data analysis platforms
+\item Excellent documentation and community
+\item Future-proof technology stack
+\item Transferable skills for career development
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Multi-Modal Data Analysis}
+
+\begin{frame}
+\frametitle{Three Ways to Get Data}
+\begin{alertblock}{Data Input Methods}
+\begin{enumerate}
+\item \textbf{Upload Dataset}: Real-world CSV/Excel files
+\item \textbf{Generate Data}: Synthetic data from probability distributions
+\item \textbf{AI-Generated Data}: Natural language data creation
+\end{enumerate}
+\end{alertblock}
+
+\begin{exampleblock}{Why Multiple Input Methods?}
+\begin{itemize}
+\item \textbf{Real Data}: Upload actual datasets for authentic analysis
+\item \textbf{Controlled Data}: Generate data with known parameters for learning
+\item \textbf{Custom Data}: Use AI to create specific scenarios for analysis
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Upload Dataset Workflow}
+\begin{alertblock}{Step-by-Step Process}
+\begin{enumerate}
+\item Choose "Upload Dataset" from data input options
+\item Drag \& drop or browse for CSV/Excel files
+\item System automatically detects numeric columns
+\item Select which columns to analyze
+\item View results in tabbed interface
+\end{enumerate}
+\end{alertblock}
+
+\begin{exampleblock}{File Requirements}
+\begin{itemize}
+\item First row: column headers
+\item At least one numeric column
+\item Supported: CSV, Excel (.xlsx, .xls)
+\item Maximum size: 10MB
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Generate Data Workflow}
+\begin{alertblock}{Distribution-Based Generation}
+\begin{enumerate}
+\item Choose "Generate Data" from data input options
+\item Select probability distributions (Normal, Exponential, etc.)
+\item Configure parameters (mean, std dev, lambda, etc.)
+\item Set sample size (10 to 1000 samples)
+\item Generate multiple datasets simultaneously
+\end{enumerate}
+\end{alertblock}
+
+\begin{exampleblock}{Educational Benefits}
+\begin{itemize}
+\item \textbf{Known Parameters}: Compare estimates to true values
+\item \textbf{Distribution Shapes}: See how parameters affect data
+\item \textbf{Sample Size Effects}: Understand impact of sample size
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{AI-Generated Data Workflow}
+\begin{alertblock}{Natural Language Data Creation}
+\begin{enumerate}
+\item Choose "AI-Generated Data" from data input options
+\item Describe the data you want in plain English
+\item AI parses your description and generates appropriate data
+\item Automatically analyzes the generated data
+\end{enumerate}
+\end{alertblock}
+
+\begin{exampleblock}{Example Prompts}
+\begin{itemize}
+\item "Generate 100 random heights of college students (normal distribution, mean 170cm, std dev 10cm)"
+\item "Create 50 data points representing waiting times at a coffee shop (exponential distribution, lambda=0.5)"
+\item "Generate test scores for 200 students with a mean of 75 and standard deviation of 15"
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Setting Up AI Data Generation in China}
+\begin{alertblock}{Getting API Keys in China}
+\begin{enumerate}
+\item \textbf{Alibaba Cloud DashScope} (Recommended)
+\begin{itemize}
+\item Website: \texttt{https://dashscope.aliyuncs.com/}
+\item Register for Alibaba Cloud account
+\item Enable DashScope service
+\item Get API key from console
+\end{itemize}
+\item \textbf{Baidu ERNIE} (Alternative)
+\begin{itemize}
+\item Website: \texttt{https://cloud.baidu.com/product/wenxinworkshop}
+\item Good Chinese language support
+\item Competitive pricing
+\end{itemize}
+\item \textbf{Zhipu AI} (Alternative)
+\begin{itemize}
+\item Website: \texttt{https://www.zhipuai.cn/}
+\item Reliable service
+\item Good documentation
+\end{itemize}
+\end{enumerate}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Configuring Your API Key}
+\begin{alertblock}{Environment Variable Setup}
+\begin{enumerate}
+\item Create \texttt{.env} file in your project root
+\item Add your API key: \texttt{VITE\_DASHSCOPE\_API\_KEY=your-key-here}
+\item Restart your development server
+\item Test with the API test component
+\end{enumerate}
+\end{alertblock}
+
+\begin{exampleblock}{AI Prompt for Setup}
+\texttt{"I'm in China and want to set up AI data generation for my statistical webapp. Can you help me configure the DashScope API key and test that it's working?"}
+\end{exampleblock}
+
+\begin{alertblock}{Troubleshooting}
+\begin{itemize}
+\item If API fails, the webapp will use simulated data
+\item Check browser console for error messages
+\item Verify API key is correctly set in \texttt{.env} file
+\item Ensure development server is restarted after setting environment variable
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Analysis Methods: Basic Statistics vs MLE/MoM}
+
+\begin{frame}
+\frametitle{Tab-Based Analysis Interface}
+\begin{alertblock}{Two Analysis Tabs}
+\begin{enumerate}
+\item \textbf{Basic Statistics}: Descriptive statistics and data preview
+\item \textbf{MLE/MoM}: Parameter estimation and model fitting
+\end{enumerate}
+\end{alertblock}
+
+\begin{exampleblock}{Why Separate Tabs?}
+\begin{itemize}
+\item \textbf{Clear Organization}: Different analysis methods in separate views
+\item \textbf{Focused Learning}: Concentrate on one method at a time
+\item \textbf{Easy Extension}: Add new tabs for future methods (CI, ANOVA, etc.)
+\item \textbf{Better UX}: Less cluttered interface
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Basic Statistics Tab}
+\begin{alertblock}{What You'll See}
+\begin{itemize}
+\item \textbf{Data Preview}: Sample values and total count
+\item \textbf{Summary Statistics}: Mean, Median, Standard Deviation, Variance
+\item \textbf{Range Statistics}: Min, Max, Range
+\item \textbf{Data Source Info}: Which dataset and columns are being analyzed
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Learning Objectives}
+\begin{itemize}
+\item Understand descriptive statistics
+\item Learn to interpret data summaries
+\item Compare different datasets
+\item Prepare for inferential statistics
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{MLE/MoM Tab}
+\begin{alertblock}{Parameter Estimation Process}
+\begin{enumerate}
+\item Select distribution model to fit (Normal, Exponential, etc.)
+\item View MLE (Maximum Likelihood Estimation) results
+\item View MoM (Method of Moments) results
+\item Compare MLE vs MoM estimates side-by-side
+\end{enumerate}
+\end{alertblock}
+
+\begin{exampleblock}{Educational Value}
+\begin{itemize}
+\item \textbf{Method Comparison}: See when MLE and MoM differ
+\item \textbf{Parameter Interpretation}: Understand what each parameter means
+\item \textbf{Model Selection}: Try different distributions on same data
+\item \textbf{Statistical Theory}: Connect formulas to real calculations
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{MLE vs Method of Moments}
+\begin{alertblock}{Maximum Likelihood Estimation (MLE)}
+\begin{itemize}
+\item \textbf{Principle}: Find parameters that maximize likelihood function
+\item \textbf{Advantages}: Asymptotically efficient, consistent
+\item \textbf{Formula}: $\hat{\theta}_{MLE} = \arg\max_{\theta} L(\theta)$
+\item \textbf{Example}: Normal distribution: $\hat{\mu} = \bar{x}$, $\hat{\sigma}^2 = \frac{1}{n}\sum(x_i - \bar{x})^2$
+\end{itemize}
+\end{alertblock}
+
+\begin{alertblock}{Method of Moments (MoM)}
+\begin{itemize}
+\item \textbf{Principle}: Match sample moments to population moments
+\item \textbf{Advantages}: Simple, intuitive, often closed-form
+\item \textbf{Formula}: $E[X^k] = \frac{1}{n}\sum x_i^k$ for $k$-th moment
+\item \textbf{Example}: Normal distribution: $\hat{\mu} = \bar{x}$, $\hat{\sigma}^2 = \bar{x^2} - \bar{x}^2$
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Getting Started with AI}
+
+\begin{frame}
+\frametitle{What You Need}
+\begin{alertblock}{Great News!}
+You already have everything you need! Just use your AI code editor (Cursor, VS Code, etc.)
+\end{alertblock}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{You Already Have:}
+\begin{itemize}
+\item Computer with internet
+\item AI code editor (Cursor/VS Code)
+\item Basic statistics knowledge from lectures
+\item Curiosity to learn!
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{We'll Help You:}
+\begin{itemize}
+\item Use AI to build the webapp
+\item Understand statistical concepts
+\item Create visualizations
+\item Deploy your project
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{How AI Will Help You}
+\begin{exampleblock}{AI as Your Learning Partner}
+\begin{itemize}
+\item \textbf{Setup}: AI guides you through project creation
+\item \textbf{Coding}: AI writes code while explaining concepts
+\item \textbf{Learning}: AI explains statistical principles
+\item \textbf{Troubleshooting}: AI helps fix problems
+\item \textbf{Understanding}: AI answers "why" questions
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}{Your Role}
+\begin{itemize}
+\item Ask good questions
+\item Experiment with the webapp
+\item Connect coding to statistics
+\item Learn by doing
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 1: Ask AI to Set Up Your Environment}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I want to build a statistical webapp for learning probability distributions. I need help setting up a React project with TypeScript. Can you guide me through installing Node.js and creating the project structure?"}
+\end{alertblock}
+
+\begin{exampleblock}{What AI Will Help You With}
+\begin{itemize}
+\item Installing Node.js (if needed)
+\item Creating a React project
+\item Setting up TypeScript
+\item Installing necessary packages
+\item Explaining each step
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 1: Learning Tips}
+\begin{alertblock}{Pro Tips for AI Interaction}
+\begin{itemize}
+\item Ask AI to explain \textbf{why} each step is needed
+\item Don't just ask "what" to do, ask "why"
+\item Request examples and analogies
+\item Ask for connections to statistics concepts
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Follow-Up Questions}
+\begin{itemize}
+\item \texttt{"Why do we use React for web development?"}
+\item \texttt{"What is TypeScript and why is it useful?"}
+\item \texttt{"How does this relate to what I learned in statistics class?"}
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 2: Ask AI About Project Structure}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I'm creating a statistical webapp project. What should I name my project folder and where should I put it? I want to avoid common mistakes that beginners make."}
+\end{alertblock}
+
+\begin{exampleblock}{AI Will Explain}
+\begin{itemize}
+\item Good folder naming conventions
+\item Where to place your project
+\item How to organize files
+\item Common mistakes to avoid
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 2: Understanding Project Organization}
+\begin{alertblock}{Follow-Up Question}
+\texttt{"Can you show me the basic folder structure I'll need for a React statistical webapp?"}
+\end{alertblock}
+
+\begin{exampleblock}{Learning Questions}
+\begin{itemize}
+\item \texttt{"Why is project organization important?"}
+\item \texttt{"What does each folder contain?"}
+\item \texttt{"How does this structure help with statistics visualization?"}
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\section{Building with AI}
+
+\begin{frame}
+\frametitle{Step 3: Let AI Create Your Project}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I want to create a React webapp for statistics learning. Can you help me create the project using Vite with TypeScript? I'm a beginner, so please explain each command and what it does."}
+\end{alertblock}
+
+\begin{exampleblock}{AI Will Guide You Through}
+\begin{itemize}
+\item Creating the React project
+\item Understanding what Vite is
+\item Why we use TypeScript
+\item Installing dependencies
+\item Handling interactive prompts
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 3: When You Get Stuck}
+\begin{alertblock}{Common AI Prompts}
+\begin{itemize}
+\item \texttt{"I'm getting an interactive prompt asking me to choose options. What should I select for a statistical webapp project?"}
+\item \texttt{"The terminal is asking me questions I don't understand. Can you help?"}
+\item \texttt{"What does this error message mean?"}
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Learning Questions}
+\begin{itemize}
+\item \texttt{"What is Vite and why do we use it instead of other tools?"}
+\item \texttt{"How does TypeScript help with statistical programming?"}
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 4: Ask AI About Styling and Charts}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I want to make my statistical webapp look beautiful and add charts for data visualization. What packages should I install? I want to use Tailwind CSS for styling and need charts for histograms and statistical plots."}
+\end{alertblock}
+
+\begin{exampleblock}{AI Will Help You With}
+\begin{itemize}
+\item Installing Tailwind CSS (and why we use it)
+\item Adding chart libraries (Recharts)
+\item Installing icon libraries
+\item Setting up configuration files
+\item Troubleshooting installation issues
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 4: Understanding Visualization Tools}
+\begin{alertblock}{Follow-Up Questions}
+\begin{itemize}
+\item \texttt{"I'm getting errors when installing packages. Can you help me troubleshoot and explain what each package does?"}
+\item \texttt{"Why do we use Tailwind CSS instead of regular CSS?"}
+\item \texttt{"What makes Recharts good for statistical visualization?"}
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Learning Connections}
+\begin{itemize}
+\item \texttt{"How do these tools help me visualize statistical concepts?"}
+\item \texttt{"What types of charts are best for different distributions?"}
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\section{Configuration with AI}
+
+\begin{frame}
+\frametitle{Step 5: Let AI Configure Your Styling}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I need to configure Tailwind CSS for my statistical webapp. Can you help me set up the configuration file? I want a professional color scheme and need it to work with my React TypeScript project."}
+\end{alertblock}
+
+\begin{exampleblock}{AI Will Provide}
+\begin{itemize}
+\item Complete Tailwind configuration
+\item Professional color palette
+\item Explanation of each setting
+\item How to customize colors later
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 5: Understanding Configuration}
+\begin{alertblock}{Understanding Questions}
+\begin{itemize}
+\item \texttt{"Can you explain what each part of this configuration does and why it's important for my webapp?"}
+\item \texttt{"How do colors affect user experience in statistical visualization?"}
+\item \texttt{"What makes a color scheme professional for data analysis?"}
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 6: Ask AI About CSS Setup}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I need to set up the CSS file for my statistical webapp. Can you help me configure Tailwind CSS imports and create some custom styles? I want a clean, professional look with good typography."}
+\end{alertblock}
+
+\begin{exampleblock}{AI Will Help You Create}
+\begin{itemize}
+\item Tailwind CSS imports
+\item Custom font setup
+\item Reusable component styles
+\item Professional color scheme
+\item Responsive design classes
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 6: Understanding CSS and Design}
+\begin{alertblock}{Learning Questions}
+\begin{itemize}
+\item \texttt{"Can you explain how Tailwind CSS works and why we use these specific classes for a professional webapp?"}
+\item \texttt{"How does typography affect readability in data visualization?"}
+\item \texttt{"What makes a design 'professional' for statistical applications?"}
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Testing Your Setup}
+
+\begin{frame}
+\frametitle{Step 7: Ask AI to Help You Test}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I've set up my React project with Tailwind CSS. How do I start the development server and test that everything is working? What should I expect to see?"}
+\end{alertblock}
+
+\begin{exampleblock}{AI Will Guide You Through}
+\begin{itemize}
+\item Starting the development server
+\item Understanding the output messages
+\item Opening your webapp in the browser
+\item What the default page should look like
+\item How to verify Tailwind is working
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 7: Troubleshooting Your Setup}
+\begin{alertblock}{If Something Goes Wrong}
+\begin{itemize}
+\item \texttt{"I'm getting an error when trying to start my webapp. Can you help me troubleshoot this issue?"}
+\item \texttt{"The styling doesn't look right. What could be wrong?"}
+\item \texttt{"My browser shows a blank page. What should I check?"}
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Success Indicators}
+\begin{itemize}
+\item Development server starts without errors
+\item Browser shows the React default page
+\item Tailwind styles are applied
+\item No console errors in browser
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{When Things Go Wrong - Ask AI!}
+\begin{alertblock}{Common AI Prompts for Troubleshooting}
+\begin{itemize}
+\item \texttt{"My webapp won't start. Here's the error message: [paste error]. Can you help me fix this?"}
+\item \texttt{"The styling isn't working. What could be wrong with my Tailwind CSS setup?"}
+\item \texttt{"I'm getting import errors. Can you help me understand what's happening?"}
+\item \texttt{"My terminal is asking me questions I don't understand. What should I choose?"}
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Getting Effective AI Help}
+\begin{exampleblock}{Pro Tips for AI Help}
+\begin{itemize}
+\item Always copy and paste exact error messages
+\item Tell AI what you were trying to do
+\item Ask for explanations, not just fixes
+\item Don't be afraid to ask "why" questions
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}{Best Practices}
+\begin{itemize}
+\item Include context about your project
+\item Mention what you've already tried
+\item Ask for step-by-step guidance
+\item Request explanations of concepts you don't understand
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Building the Statistical Features}
+
+\begin{frame}
+\frametitle{Step 8: Ask AI to Build Your Multi-Modal Data Analysis Webapp}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I want to build a comprehensive data analysis webapp for STA2002 with three data input methods: file upload, distribution generation, and AI-generated data. The webapp should have a tab-based interface with Basic Statistics and MLE/MoM analysis tabs. Can you help me create a React component structure that supports all these features?"}
+\end{alertblock}
+
+\begin{alertblock}{For Students in China}
+\texttt{"I'm in China and want to integrate real LLM APIs for AI data generation. Can you help me set up DashScope API integration with proper error handling and fallback to simulated data?"}
+\end{alertblock}
+
+\begin{exampleblock}{AI Will Help You Create}
+\begin{itemize}
+\item Multi-modal data input system (upload, generate, AI)
+\item Tab-based analysis interface (Basic Stats, MLE/MoM)
+\item File upload with column selection
+\item Distribution generator with multiple datasets
+\item AI data generator with natural language prompts
+\item MLE and Method of Moments parameter estimation
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 8: Learning Data Analysis Through Building}
+\begin{alertblock}{Learning Approach}
+Ask AI to explain the statistical concepts as you build:
+\begin{itemize}
+\item \texttt{"Can you explain how MLE and Method of Moments work and when to use each?"}
+\item \texttt{"How do I implement file upload with column detection in React?"}
+\item \texttt{"What's the best way to structure a tab-based analysis interface?"}
+\item \texttt{"How do I create an AI data generator that parses natural language?"}
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Architecture Questions}
+\begin{itemize}
+\item \texttt{"How can I design my webapp to handle multiple data sources seamlessly?"}
+\item \texttt{"What TypeScript interfaces should I create for different data input methods?"}
+\item \texttt{"How do I structure components to be easily extensible for new analysis methods?"}
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 9: Test and Learn with AI}
+\begin{alertblock}{Testing Your Webapp}
+\begin{enumerate}
+\item Try different distributions
+\item Adjust parameters and see what happens
+\item Generate data and observe patterns
+\item Ask AI: \texttt{"Why does changing the mean shift the distribution?"}
+\item Ask AI: \texttt{"What happens when I increase the standard deviation?"}
+\end{enumerate}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 9: Learning Questions to Ask AI}
+\begin{exampleblock}{Data Analysis Understanding}
+\begin{itemize}
+\item \texttt{"Can you explain what these MLE and MoM estimation results mean?"}
+\item \texttt{"How do I interpret the differences between MLE and MoM estimates?"}
+\item \texttt{"What makes a good multi-modal data input interface?"}
+\item \texttt{"How should I prepare my code for adding confidence intervals and hypothesis testing?"}
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}{Connecting to Course Material}
+\begin{itemize}
+\item \texttt{"How does this multi-modal approach relate to real-world data analysis?"}
+\item \texttt{"What statistical methods should I plan to add next (confidence intervals, ANOVA, regression)?"}
+\item \texttt{"How can I extend this webapp for hypothesis testing with two datasets?"}
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Sharing Your Work}
+
+\begin{frame}
+\frametitle{Step 10: Ask AI to Help You Deploy}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I've built my statistical webapp and want to share it online. Can you help me deploy it to GitHub Pages? I'm a beginner with Git and GitHub, so please explain each step."}
+\end{alertblock}
+
+\begin{exampleblock}{AI Will Guide You Through}
+\begin{itemize}
+\item Setting up a GitHub repository
+\item Understanding Git basics
+\item Uploading your code
+\item Configuring GitHub Pages
+\item Making your webapp live online
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 10: Understanding Deployment}
+\begin{alertblock}{Learning Questions}
+\begin{itemize}
+\item \texttt{"What is Git and why do we use it for web development?"}
+\item \texttt{"How does GitHub Pages work and why is it useful?"}
+\item \texttt{"What happens when I update my code?"}
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Benefits of Online Deployment}
+\begin{itemize}
+\item Share your work with others
+\item Access your webapp from anywhere
+\item Demonstrate your learning
+\item Build a portfolio
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 11: Ask AI About GitHub Pages Setup}
+\begin{alertblock}{AI Prompt to Use}
+\texttt{"I've uploaded my code to GitHub. Now I want to make my statistical webapp live on GitHub Pages. Can you walk me through the settings and explain how the deployment process works?"}
+\end{alertblock}
+
+\begin{exampleblock}{AI Will Help You With}
+\begin{itemize}
+\item Navigating GitHub repository settings
+\item Understanding GitHub Pages options
+\item Setting up automatic deployment
+\item Troubleshooting deployment issues
+\item Understanding the deployment process
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 11: Understanding the Deployment Process}
+\begin{alertblock}{Understanding Questions}
+\begin{itemize}
+\item \texttt{"Can you explain what happens when I push changes to GitHub and how my webapp gets updated?"}
+\item \texttt{"Why do we need automatic deployment?"}
+\item \texttt{"How long does it take for changes to appear online?"}
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Success Indicators}
+\begin{itemize}
+\item Your webapp is accessible via a public URL
+\item Changes appear online after pushing to GitHub
+\item No deployment errors in GitHub Actions
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\section{AI-Powered Troubleshooting}
+
+\begin{frame}
+\frametitle{When You Get Stuck - Ask AI!}
+\begin{alertblock}{Effective AI Troubleshooting Prompts}
+\begin{itemize}
+\item \texttt{"I'm getting this error: [paste exact error]. What does it mean and how can I fix it?"}
+\item \texttt{"My webapp was working yesterday but now it's broken. What could have changed?"}
+\item \texttt{"I don't understand this error message. Can you explain it in simple terms?"}
+\item \texttt{"I tried to follow the tutorial but something went wrong. Can you help me debug this?"}
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Best Practices for AI Help}
+\begin{itemize}
+\item Always include the exact error message
+\item Describe what you were trying to do
+\item Mention what you've already tried
+\item Ask for explanations, not just solutions
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Learning with AI}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{AI Learning Prompts:}
+\begin{itemize}
+\item \texttt{"Can you explain this statistical concept?"}
+\item \texttt{"Why do we use this approach?"}
+\item \texttt{"What's the difference between...?"}
+\item \texttt{"How does this relate to what I learned in class?"}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{AI Teaching Questions:}
+\begin{itemize}
+\item \texttt{"Can you give me examples of when to use this distribution?"}
+\item \texttt{"What are the real-world applications?"}
+\item \texttt{"How does this connect to other statistical concepts?"}
+\end{itemize}
+\end{column}
+\end{columns}
+
+\begin{alertblock}{Learning Strategy}
+\begin{itemize}
+\item Ask "why" questions, not just "how"
+\item Connect coding concepts to statistics
+\item Use AI to explain both technical and statistical concepts
+\item Build understanding step by step
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{What You've Accomplished}
+
+\begin{frame}
+\frametitle{Your Multi-Modal Data Analysis Webapp}
+\begin{alertblock}{Skills Developed}
+\begin{itemize}
+\item Built a comprehensive multi-modal data analysis webapp
+\item Mastered three data input methods (upload, generate, AI)
+\item Implemented tab-based analysis interface
+\item Learned MLE and Method of Moments parameter estimation
+\item Created an extensible architecture for future statistical methods
+\item Used AI tools effectively for both development and data generation
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Ready for More}
+Your webapp is now ready for:
+\begin{itemize}
+\item Confidence intervals (new tab)
+\item Hypothesis testing (two-dataset comparison)
+\item ANOVA analysis
+\item Linear regression
+\item Any future statistical methods!
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Key Features You've Built}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{Data Input Methods:}
+\begin{itemize}
+\item File upload with column selection
+\item Distribution-based data generation
+\item AI-powered natural language data creation
+\item Multi-dataset management
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Analysis Capabilities:}
+\begin{itemize}
+\item Basic descriptive statistics
+\item MLE parameter estimation
+\item Method of Moments estimation
+\item Side-by-side method comparison
+\item Distribution model selection
+\end{itemize}
+\end{column}
+\end{columns}
+
+\begin{alertblock}{Educational Value}
+\begin{itemize}
+\item \textbf{Real Data}: Upload actual datasets for authentic analysis
+\item \textbf{Controlled Learning}: Generate data with known parameters
+\item \textbf{Method Comparison}: See MLE vs MoM differences
+\item \textbf{Interactive Learning}: Change parameters and see immediate results
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Next Steps}
+
+\begin{frame}
+\frametitle{What's Next? Ask AI!}
+\begin{alertblock}{AI Prompts for Extensions}
+\begin{itemize}
+\item \texttt{"How can I add confidence intervals as a third tab?"}
+\item \texttt{"Can you help me add hypothesis testing with two datasets?"}
+\item \texttt{"I want to add ANOVA analysis. Where do I start?"}
+\item \texttt{"How can I add more distributions to my generator?"}
+\item \texttt{"Can you help me integrate a real LLM API for data generation?"}
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Learning-Driven Development}
+\begin{itemize}
+\item Ask AI to explain new statistical concepts as you learn them
+\item Build new tabs for each statistical method covered in class
+\item Connect webapp features to course material
+\item Use AI to understand real-world applications
+\item Extend the multi-modal approach to new data sources
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}{Progressive Learning}
+Start with what you have, then ask AI: \texttt{"Now that I have MLE/MoM working, what's the next logical statistical method to add to my webapp?"}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Assessment \& Submission}
+\begin{alertblock}{What to Submit}
+\begin{itemize}
+\item GitHub repository URL (your live code)
+\item Deployed website link (your live webapp)
+\item Brief explanation of what you learned
+\item Screenshots showing your webapp in action
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{Evaluation Focus}
+\begin{itemize}
+\item \textbf{Learning}: Did you understand the statistical concepts?
+\item \textbf{Functionality}: Does your webapp work?
+\item \textbf{Creativity}: What did you add or customize?
+\item \textbf{Understanding}: Can you explain what you built?
+\end{itemize}
+\end{exampleblock}
+
+\begin{alertblock}{AI-Assisted Reflection}
+Ask AI: \texttt{"Can you help me write a summary of what I learned building this statistical webapp?"}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Questions \& Support}
+\begin{center}
+\Large \textbf{Questions?}
+
+\vspace{1em}
+
+\textbf{Office Hours:}
+\begin{itemize}
+\item Fangda Song: Tue 3:30-4:30 pm, Rm 420d
+\item Ka Wai Tsang: Mon 10:30-11:30 am, Rm 505b
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Teaching Assistants:}
+\begin{itemize}
+\item Ruicong Wang: Mon 10:00-11:00 am
+\item Wendi Ren: Thu 4:00-5:00 pm
+\item Bokun Yu: Thu 4:00-5:00 pm
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Online Support:}
+Tencent Meeting: 748-5967-3028
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Huge \textbf{Start Building!}
+
+\vspace{1em}
+
+\Large Use AI to learn statistics through coding!
+
+\vspace{2em}
+
+\textbf{Remember:} 
+\begin{itemize}
+\item Ask AI lots of questions
+\item Learn by doing
+\item Connect coding to statistics
+\item Don't be afraid to experiment!
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Your AI is your best learning partner!}
+\end{center}
+\end{frame}
+
+\end{document}
