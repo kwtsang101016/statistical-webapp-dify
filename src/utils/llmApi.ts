@@ -10,17 +10,11 @@ interface LLMResponse {
 
 // Alibaba Cloud DashScope API (Bailian service)
 export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {
-  const apiKey = import.meta.env.VITE_DASHSCOPE_API_KEY;
+  // Use environment variable first, fallback to direct API key for demo
+  const apiKey = import.meta.env.VITE_DASHSCOPE_API_KEY || 'sk-0bce80a7fc184aea9aa906b2b5a75e47';
   
   console.log('API Key loaded:', apiKey ? `${apiKey.substring(0, 10)}...` : 'NOT FOUND');
   console.log('All env vars:', import.meta.env);
-  
-  if (!apiKey) {
-    return {
-      success: false,
-      error: 'AI API key not configured. To use AI data generation:\n\n1. Get an API key from Alibaba Cloud DashScope (https://dashscope.aliyuncs.com/)\n2. Create a .env file in your project root\n3. Add: VITE_DASHSCOPE_API_KEY=your-key-here\n4. Restart the development server\n\nFor now, using simulated data instead.'
-    };
-  }
 
   try {
     const requestBody = {
