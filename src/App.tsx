@@ -34,13 +34,13 @@ const DISTRIBUTION_INFO = {
   normal: {
     name: 'Normal Distribution',
     description: 'A continuous probability distribution that is symmetric around the mean, with the famous bell curve shape.',
-    formula: 'f(x) = (1/蟽鈭?2蟺)) * e^(-(x-渭)虏/(2蟽虏))',
+    formula: 'f(x) = (1/σ√2π)) * e^(-(x-μ)²/(2σ²))',
     useCases: ['Height measurements', 'Test scores', 'Measurement errors', 'Natural phenomena']
   },
   exponential: {
     name: 'Exponential Distribution',
     description: 'Models the time between events in a Poisson process, with a constant hazard rate.',
-    formula: 'f(x) = 位e^(-位x) for x 鈮?0',
+    formula: 'f(x) = λe^(-λx) for x ≤0',
     useCases: ['Waiting times', 'Lifetimes of electronic components', 'Time between phone calls']
   },
   binomial: {
@@ -52,13 +52,13 @@ const DISTRIBUTION_INFO = {
   poisson: {
     name: 'Poisson Distribution',
     description: 'Models the number of events occurring in a fixed interval of time or space.',
-    formula: 'P(X=k) = (位^k * e^(-位)) / k!',
+    formula: 'P(X=k) = (λ^k * e^(-λ)) / k!',
     useCases: ['Number of emails per hour', 'Defects in manufacturing', 'Accidents per day']
   },
   uniform: {
     name: 'Uniform Distribution',
     description: 'All outcomes are equally likely within a specified range.',
-    formula: 'f(x) = 1/(b-a) for a 鈮?x 鈮?b',
+    formula: 'f(x) = 1/(b-a) for a ≤x ≤b',
     useCases: ['Random number generation', 'Fair dice rolls', 'Random sampling']
   }
 };
@@ -404,10 +404,10 @@ function App() {
                         >
                           <div className="font-medium">{dataset.name}</div>
                           <div className="text-sm text-gray-600">
-                            {dataset.source} 鈥?{dataset.columns.length} columns 鈥?{dataset.data.length} rows
+                            {dataset.source} • {dataset.columns.length} columns • {dataset.data.length} rows
                             {dataset.selectedColumns.length > 0 && (
                               <span className="ml-2 text-green-600">
-                                鉁?Analyzed
+                                ✓ Analyzed
                               </span>
                             )}
                           </div>
@@ -455,8 +455,8 @@ function App() {
       <div>
                         <h3 className="font-medium text-primary-900">{activeDataset?.name}</h3>
                         <p className="text-sm text-primary-700">
-                          Source: {activeDataset?.source} 鈥?
-                          Columns: {activeDataset?.selectedColumns.join(', ')} 鈥?
+                          Source: {activeDataset?.source} ↓
+                          Columns: {activeDataset?.selectedColumns.join(', ')} ↓
                           Sample size: {analysisData.length.toLocaleString()}
                         </p>
                       </div>
