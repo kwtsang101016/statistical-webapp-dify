@@ -107,7 +107,7 @@ function calculateKurtosis(data: number[], mean: number, stdDev: number): number
 export function estimateMLE(
   data: number[],
   distribution: string,
-  initialParams: Record<string, number>
+  _initialParams: Record<string, number>
 ): EstimationResult {
   // Simplified MLE implementation
   // In a real application, you'd use numerical optimization
@@ -166,7 +166,7 @@ export function estimateMLE(
 export function estimateMoM(
   data: number[],
   distribution: string,
-  initialParams: Record<string, number>
+  _initialParams: Record<string, number>
 ): EstimationResult {
   const n = data.length;
   const mean = data.reduce((sum, x) => sum + x, 0) / n;

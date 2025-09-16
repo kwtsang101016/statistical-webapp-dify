@@ -7,15 +7,6 @@ interface LLMResponse {
   error?: string;
 }
 
-interface BailianRequest {
-  model: string;
-  messages: Array<{
-    role: 'user' | 'assistant' | 'system';
-    content: string;
-  }>;
-  temperature?: number;
-  max_tokens?: number;
-}
 
 // Alibaba Cloud DashScope API (Bailian service)
 export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {

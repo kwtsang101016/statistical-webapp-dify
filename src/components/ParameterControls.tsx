@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { DistributionType, DistributionParams, DISTRIBUTION_INFO } from '../utils/distributions';
+import type { DistributionType, DistributionParams } from '../utils/distributions';
+import { DISTRIBUTION_INFO } from '../utils/distributions';
 
 interface ParameterControlsProps {
   distribution: DistributionType;
@@ -47,7 +48,7 @@ const ParameterControls: React.FC<ParameterControlsProps> = ({
         );
       })}
       
-      <style jsx>{`
+      <style>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
           height: 20px;

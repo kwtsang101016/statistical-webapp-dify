@@ -1,5 +1,5 @@
 import React from 'react';
-import { SummaryStatistics as SummaryStats } from '../utils/statistics';
+import type { SummaryStatistics as SummaryStats } from '../utils/statistics';
 import { TrendingUp, TrendingDown, Minus, Target } from 'lucide-react';
 
 interface SummaryStatisticsProps {
