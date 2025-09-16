@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { DistributionType, DistributionParams } from '../utils/distributions';
+import { useMemo } from 'react';
+import type { DistributionType, DistributionParams } from '../utils/distributions';
 import { estimateMLE, estimateMoM } from '../utils/statistics';
 import { Calculator, Target, TrendingUp } from 'lucide-react';
 

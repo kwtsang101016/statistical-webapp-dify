@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BarChart3, X, Plus, Trash2 } from 'lucide-react';
 
 type DistributionType = 'normal' | 'exponential' | 'binomial' | 'poisson' | 'uniform';
@@ -339,7 +339,7 @@ export function DistributionGenerator({ onDatasetAdded, onBack }: DistributionGe
       </div>
 
       <div className="space-y-4">
-        {datasets.map((dataset, index) => (
+        {datasets.map((dataset) => (
           <div key={dataset.id} className="card">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-3">

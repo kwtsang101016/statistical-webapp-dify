@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { callDashScopeAPI } from '../utils/llmApi';
 
 export function APITest() {

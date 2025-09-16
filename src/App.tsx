@@ -28,13 +28,6 @@ interface Dataset {
 // Simple types for distribution generation
 type DistributionType = 'normal' | 'exponential' | 'binomial' | 'poisson' | 'uniform';
 
-interface DistributionParams {
-  normal: { mean: number; stdDev: number };
-  exponential: { lambda: number };
-  binomial: { n: number; p: number };
-  poisson: { lambda: number };
-  uniform: { min: number; max: number };
-}
 
 
 const DISTRIBUTION_INFO = {
@@ -101,10 +94,10 @@ interface EstimationResult {
 function estimateMLE(data: number[], distribution: DistributionType): EstimationResult {
   let estimatedParams: Record<string, number> = {};
   let logLikelihood: number | undefined;
+  const n = data.length;
 
   switch (distribution) {
     case 'normal':
-      const n = data.length;
       const sum = data.reduce((a, b) => a + b, 0);
       const mean = sum / n;
       const variance = data.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / n; // MLE uses n, not n-1
@@ -459,7 +452,7 @@ function App() {
                   <h2 className="text-xl font-semibold text-gray-900 mb-4">Analysis Results</h2>
                   <div className="bg-primary-50 border border-primary-200 rounded-lg p-4 mb-4">
                     <div className="flex items-center justify-between">
-                      <div>
+      <div>
                         <h3 className="font-medium text-primary-900">{activeDataset?.name}</h3>
                         <p className="text-sm text-primary-700">
                           Source: {activeDataset?.source} 鈥?
@@ -625,12 +618,12 @@ function App() {
                             </div>
                           </div>
                         </div>
-                      </div>
+      </div>
                     )}
 
                     {/* Comparison */}
                     {mleResult && momResult && (
-                      <div className="card">
+      <div className="card">
                         <h2 className="text-xl font-semibold text-gray-900 mb-4">MLE vs MoM Comparison</h2>
                         <div className="space-y-3">
                           {Object.keys(mleResult.estimatedParams).map(param => (

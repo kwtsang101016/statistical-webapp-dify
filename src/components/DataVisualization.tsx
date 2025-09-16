@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { GeneratedData } from '../types/statistics';
+import type { GeneratedData } from '../types/statistics';
 
 interface DataVisualizationProps {
   data: GeneratedData;

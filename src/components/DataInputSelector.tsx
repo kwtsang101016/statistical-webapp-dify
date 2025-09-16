@@ -1,4 +1,3 @@
-import React from 'react';
 import { Upload, BarChart3, Brain, ArrowLeft } from 'lucide-react';
 
 interface DataInputSelectorProps {
