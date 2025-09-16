@@ -37,7 +37,7 @@ export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {
       }
     };
 
-    const response = await fetch('https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation', {
+    const response = await fetch('/api/dashscope', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
