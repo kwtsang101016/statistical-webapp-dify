@@ -18,7 +18,7 @@ export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {
   if (!apiKey) {
     return {
       success: false,
-      error: 'DashScope API key not found. Please set DASHSCOPE_API_KEY environment variable and restart the dev server.'
+      error: 'AI API key not configured. To use AI data generation:\n\n1. Get an API key from Alibaba Cloud DashScope (https://dashscope.aliyuncs.com/)\n2. Create a .env file in your project root\n3. Add: VITE_DASHSCOPE_API_KEY=your-key-here\n4. Restart the development server\n\nFor now, using simulated data instead.'
     };
   }
 
