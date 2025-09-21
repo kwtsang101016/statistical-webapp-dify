@@ -3,8 +3,5 @@
     "api/dashscope.js": {
       "maxDuration": 30
     }
-  },
-  "env": {
-    "DASHSCOPE_API_KEY": "@dashscope_api_key"
   }
 }

@@ -11,7 +11,7 @@ interface LLMResponse {
 // Alibaba Cloud DashScope API (Bailian service)
 export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {
   // Use environment variable first, fallback to direct API key for demo
-  const apiKey = import.meta.env.VITE_DASHSCOPE_API_KEY || 'sk-0bce80a7fc184aea9aa906b2b5a75e47';
+  const apiKey = import.meta.env.VITE_DASHSCOPE_API_KEY || '';
   
   console.log('API Key loaded:', apiKey ? `${apiKey.substring(0, 10)}...` : 'NOT FOUND');
   console.log('All env vars:', import.meta.env);
