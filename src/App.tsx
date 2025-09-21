@@ -4,7 +4,8 @@ import { DataInputSelector } from './components/DataInputSelector';
 import { FileUploadComponent } from './components/FileUploadComponent';
 import { ColumnSelector } from './components/ColumnSelector';
 import { DistributionGenerator } from './components/DistributionGenerator';
-import { AIDataGenerator } from './components/AIDataGenerator';
+import { DifyEnhancedDataGenerator } from './components/DifyEnhancedDataGenerator';
+import { SimpleAIAnalysis } from './components/SimpleAIAnalysis';
 import { APITest } from './components/APITest';
 
 // Data input types
@@ -315,7 +316,7 @@ function App() {
         );
       case 'ai':
         return (
-          <AIDataGenerator
+          <DifyEnhancedDataGenerator
             onDatasetAdded={handleDatasetAdded}
             onBack={() => setDataInputMethod(null)}
           />
@@ -445,6 +446,13 @@ function App() {
 
           {/* Right Column - Analysis Results */}
           <div className="space-y-6">
+            {/* Manual AI Analysis - Disabled */}
+
+            {/* Student-Friendly AI Analysis */}
+            {analysisData.length > 0 && (
+              <SimpleAIAnalysis data={analysisData} />
+            )}
+
             {analysisData.length > 0 && stats ? (
               <>
                 {/* Dataset Info */}
