@@ -71,7 +71,7 @@ export async function testSingleWorkflow(workflowName: string) {
     case 'distribution-detector':
       return difyAPI.detectDistribution([75, 82, 68, 90, 77]);
     case 'results-interpreter':
-      return difyAPI.interpretResults('t-test', { pValue: 0.05 });
+      return { success: false, error: 'Results Interpreter removed to free up workflow slot' };
     default:
       console.error('Unknown workflow:', workflowName);
   }
