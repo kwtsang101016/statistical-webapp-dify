@@ -6,7 +6,7 @@ import { ColumnSelector } from './components/ColumnSelector';
 import { DistributionGenerator } from './components/DistributionGenerator';
 import { DifyEnhancedDataGenerator } from './components/DifyEnhancedDataGenerator';
 import { SimpleAIAnalysis } from './components/SimpleAIAnalysis';
-import { APITest } from './components/APITest';
+// import { APITest } from './components/APITest'; // Removed for cleaner student interface
 
 // Data input types
 type DataInputMethod = 'upload' | 'generate' | 'ai';
@@ -341,8 +341,16 @@ function App() {
                 <BarChart3 className="h-8 w-8 text-white" />
               </div>
       <div>
-                <h1 className="text-3xl font-bold text-gray-900">Statistical Data Analysis Webapp</h1>
-                <p className="text-gray-600">Upload, generate, or create data with AI for comprehensive analysis</p>
+                <h1 className="text-3xl font-bold text-gray-900">AI-Enhanced Statistical Analysis Platform</h1>
+                <p className="text-gray-600">Generate intelligent datasets, get AI analysis recommendations, and learn statistics with professional guidance</p>
+                <div className="mt-2 flex items-center space-x-2">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                    🤖 Powered by Dify AI
+                  </span>
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    🎓 Educational Platform
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -354,11 +362,6 @@ function App() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left Column - Data Input */}
               <div className="space-y-6">
-                {/* API Test Component - Remove this after testing */}
-                <div className="card">
-                  <APITest />
-                </div>
-                
                 <div className="card">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-xl font-semibold text-gray-900">Data Input</h2>
