@@ -94,22 +94,9 @@ export class DifyStatisticalAPI {
     });
   }
 
-  // Results Interpreter
-  async interpretResults(
-    testType: string,
-    results: Record<string, any>,
-    studentLevel: 'undergraduate' | 'graduate' = 'undergraduate'
-  ): Promise<DifyResponse> {
-    // Extract a single number from results (like p-value) as required by workflow
-    const resultValue = results.pValue || results.statistic || results.score || 0.05;
-    
-    return this.callDifyWorkflow(DIFY_WORKFLOWS.RESULTS_INTERPRETER, {
-      test_type: testType,  // required string
-      results: typeof resultValue === 'number' ? resultValue : parseFloat(resultValue) || 0.05,  // required number
-      student_level: studentLevel  // optional string
-      // Removed explanation_type - not in workflow requirements
-    });
-  }
+  // Results Interpreter - REMOVED to free up workflow slot
+  // This functionality can be added back later if needed
+  // async interpretResults(...) { ... }
 
   // Data Quality Checker
   async checkDataQuality(data: number[]): Promise<DifyResponse> {

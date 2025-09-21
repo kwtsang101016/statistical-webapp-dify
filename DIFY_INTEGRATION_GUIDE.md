@@ -29,13 +29,13 @@ VITE_DASHSCOPE_API_KEY=your-dashscope-key
 
 You need to create these workflows in your Dify workspace:
 
-#### A. Data Generation Workflow
+#### A. Data Generation Workflow ✅ ACTIVE
 - **Purpose**: Generate statistical data from natural language prompts
 - **Input**: `query` (string) - User's data generation request
 - **Output**: `result` (string) - JSON formatted data array
 - **Example**: "Generate 100 test scores" → `{"data": [75, 82, 68, ...], "description": "Test scores"}`
 
-#### B. Analysis Advisor Workflow  
+#### B. Analysis Advisor Workflow ✅ ACTIVE
 - **Purpose**: Recommend appropriate statistical tests
 - **Inputs**: 
   - `data_summary` (string) - JSON with basic stats
@@ -43,27 +43,23 @@ You need to create these workflows in your Dify workspace:
   - `sample_size` (number) - Data size
 - **Output**: `result` (string) - Analysis recommendation
 
-#### C. Results Interpreter Workflow
-- **Purpose**: Explain statistical results in plain language
-- **Inputs**:
-  - `test_type` (string) - Type of statistical test
-  - `results` (string) - JSON with test results
-  - `student_level` (string) - undergraduate/graduate
-- **Output**: `result` (string) - Plain language explanation
-
-#### D. Data Quality Checker Workflow
+#### C. Data Quality Checker Workflow ✅ ACTIVE
 - **Purpose**: Assess data quality and suggest improvements
 - **Inputs**:
   - `data` (string) - JSON array of sample data
   - `sample_size` (number) - Total data size
 - **Output**: `result` (string) - Quality assessment
 
-#### E. Distribution Detector Workflow
+#### D. Distribution Detector Workflow ✅ ACTIVE
 - **Purpose**: Identify likely probability distribution
 - **Inputs**:
   - `data_stats` (string) - JSON with descriptive statistics
-  - `sample_data` (string) - JSON array of sample points
+  - `sample_data` (paragraph) - Complete dataset
 - **Output**: `result` (string) - Distribution analysis
+
+#### ~~E. Results Interpreter Workflow~~ ❌ REMOVED
+- **Status**: Removed to free up workflow slot for advanced features
+- **Reason**: Not actively used in current UI, can be re-added later if needed
 
 ## 🔄 Migration Steps
 

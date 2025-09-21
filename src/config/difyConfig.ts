@@ -14,11 +14,11 @@ export const DIFY_WORKFLOWS = {
     apiKey: 'app-mw7Yoc7WSz74HUCtPMGWo4as'
   },
   
-  // Statistical Results Interpreter
-  RESULTS_INTERPRETER: {
-    id: 'bb243e09-f6ce-4e85-9c2c-f0d737d9b9fe',
-    apiKey: 'app-73CkJ8TJ9nAcwoD7c5Vyhtg4'
-  },
+  // Statistical Results Interpreter - REMOVED to free up workflow slot
+  // RESULTS_INTERPRETER: {
+  //   id: 'bb243e09-f6ce-4e85-9c2c-f0d737d9b9fe',
+  //   apiKey: 'app-73CkJ8TJ9nAcwoD7c5Vyhtg4'
+  // },
   
   // Data Quality Checker
   DATA_QUALITY: {

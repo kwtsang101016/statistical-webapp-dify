@@ -50,24 +50,8 @@ export async function testDifyWorkflows() {
     console.error('❌ Distribution Detector Error:', error);
   }
 
-  // Test 5: Results Interpreter
-  console.log('\n5️⃣ Testing Results Interpreter Workflow...');
-  try {
-    const mockResults = {
-      pValue: 0.03,
-      tStatistic: 2.45,
-      confidenceInterval: [1.2, 5.8],
-      effectSize: 0.8
-    };
-    const interpretResult = await difyAPI.interpretResults(
-      't-test',
-      mockResults,
-      'undergraduate'
-    );
-    console.log('✅ Results Interpreter Result:', interpretResult);
-  } catch (error) {
-    console.error('❌ Results Interpreter Error:', error);
-  }
+  // Test 5: Results Interpreter - REMOVED
+  console.log('\n5️⃣ Results Interpreter - Removed to free up workflow slot');
 
   console.log('\n🎉 Dify Workflow Testing Complete!');
 }
@@ -101,3 +85,4 @@ if (typeof window !== 'undefined') {
   console.log('  - testDify() - Test all workflows');
   console.log('  - testSingleWorkflow("workflow-name") - Test specific workflow');
 }
+
