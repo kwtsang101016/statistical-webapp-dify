@@ -40,7 +40,7 @@ export async function callDashScopeAPI(prompt: string): Promise<LLMResponse> {
     const isDevelopment = import.meta.env.DEV;
     const apiUrl = isDevelopment 
       ? '/api/dashscope'  // Use Vite proxy in development
-      : 'https://statistical-webapp-dify.vercel.app/api/dashscope'; // Use Vercel serverless function in production
+      : 'https://statistical-webapp-dify-bhvo73pl9-kwtsangs-projects.vercel.app/api/dashscope'; // Use Vercel serverless function in production
 
     const response = await fetch(apiUrl, {
       method: 'POST',
